@@ -28,43 +28,87 @@ const pokemons = [
 ];
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [typeFilter, setTypeFilter] = useState("All");
+  const [typeFilter, setTypeFilter] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
+  // Toggle favorite status of a pokemon
   const toggleFavorite = (id) => {
     setFavorites((prev) =>
       prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id],
     );
   };
+
+  // Toggle type filter (add/remove type from filter)
+  const toggleType = (type) => {
+    setTypeFilter((prev) => {
+      // If favorites is active, reset first
+      if (prev.includes("Favorites")) {
+        return [type];
+      }
+
+      // Normal toggle
+      if (prev.includes(type)) {
+        return prev.filter((t) => t !== type);
+      }
+
+      return [...prev, type];
+    });
+  };
+
+  // Extract unique pokemon types
+  const types = [...new Set(pokemons.map((p) => p.type))];
+
+  //Filter logic
   const filteredPokemon = pokemons.filter((p) => {
-    if (typeFilter === "Favorites") {
+    if (typeFilter.includes("Favorites")) {
       return favorites.includes(p.id);
     }
 
-    if (typeFilter === "All") {
+    if (typeFilter.length === 0) {
       return true;
     }
 
-    return p.type === typeFilter;
+    return typeFilter.includes(p.type);
   });
 
   return (
     <>
       <h1>Pokemon App</h1>
       <div className="filters">
-        <button onClick={() => setTypeFilter("All")}>All</button>
-        <button onClick={() => setTypeFilter("Fire")}>Fire</button>
-        <button onClick={() => setTypeFilter("Water")}>Water</button>
-        <button onClick={() => setTypeFilter("Grass")}>Grass</button>
-        <button onClick={() => setTypeFilter("Electric")}>Electric</button>
-        <button onClick={() => setTypeFilter("Psychic")}>Psychic</button>
-        <button onClick={() => setTypeFilter("Ghost")}>Ghost</button>
-        <button onClick={() => setTypeFilter("Dragon")}>Dragon</button>
-        <button onClick={() => setTypeFilter("Normal")}>Normal</button>
-        <button onClick={() => setTypeFilter("Fighting")}>Fighting</button>
-        <button onClick={() => setTypeFilter("Rock")}>Rock</button>
-        <button onClick={() => setTypeFilter("Favorites")}>Favorites</button>
+        <button
+          className={typeFilter.length === 0 ? "active-filter" : ""}
+          onClick={() => setTypeFilter([])}
+        >
+          All
+        </button>
+
+        {types.map((type) => (
+          <button
+            key={type}
+            className={typeFilter.includes(type) ? "active-filter" : ""}
+            onClick={() => toggleType(type)}
+          >
+            {type}
+          </button>
+        ))}
+
+        <button
+          className={typeFilter.includes("Favorites") ? "active-filter" : ""}
+          onClick={() => setTypeFilter(["Favorites"])}
+        >
+          Favorites
+        </button>
+      </div>
+      <div className="active-filters">
+        {typeFilter.map((filter) => (
+          <span
+            key={filter}
+            className="filter-chip"
+            onClick={() => toggleType(filter)}
+          >
+            {filter} ✕
+          </span>
+        ))}
       </div>
       <div className="card-container">
         {filteredPokemon.map((pokemon) => (

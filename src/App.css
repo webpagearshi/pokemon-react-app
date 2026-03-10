@@ -87,22 +87,6 @@ body {
   box-shadow: 0 20px 35px var(--type-color);
 }
 
-.filters {
-  margin-bottom: 20px;
-}
-.filters button {
-  margin: 0 5px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  background-color: #61dafb;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-.filters button:hover {
-  background-color: #21a1f1;
-}
 /* zoom image */
 .card img {
   width: 120px;
@@ -151,4 +135,58 @@ body {
   background: transparent;
   font-size: 20px;
   cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters button {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-family: Inter, sans-serif;
+  transition: all 0.2s ease;
+}
+
+.filters button:hover {
+  transform: translateY(-1px);
+}
+
+.active-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filter-chip {
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: #f1f1f1;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.filters button {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: white;
+  color: #333; /* important */
+  cursor: pointer;
+  font-family: Inter, sans-serif;
+  transition: all 0.2s ease;
+}
+.filters button:hover {
+  background: #f3f3f3;
+}
+.active-filter {
+  background: #333;
+  color: white;
+  border: 1px solid #333;
 }
