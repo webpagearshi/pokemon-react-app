@@ -1,21 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap");
+body {
+  font-family: "Inter", sans-serif;
+  background: #f6f7fb;
+  margin: 0;
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 @keyframes logo-spin {
@@ -49,6 +42,7 @@
 }
 
 .card {
+  border: 2px solid var(--type-color);
   padding: 16px;
   border-radius: 14px;
   background: white;
@@ -57,6 +51,36 @@
     0.25s ease,
     box-shadow 0.25s ease;
   transform-style: preserve-3d;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--type-color) 12%, white),
+    white
+  );
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  position: relative;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+
+  border-radius: 16px;
+
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--type-color) 40%, transparent),
+    transparent 70%
+  );
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  z-index: -1;
+}
+.card:hover::before {
+  opacity: 1;
 }
 .card:hover {
   transform: translateY(-8px) rotateX(6deg) rotateY(-6deg);
@@ -99,8 +123,10 @@
   background: transparent;
   color: var(--type-color);
 
-  font-weight: 600;
   font-size: 14px;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.04em;
 
   transition:
     transform 0.2s ease,
@@ -109,4 +135,14 @@
 .card:hover .type-badge {
   transform: scale(1.15);
   box-shadow: 0 4px 10px var(--type-color);
+}
+.pokemon-name {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+}
+.pokemon-stats {
+  font-size: 14px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
 }

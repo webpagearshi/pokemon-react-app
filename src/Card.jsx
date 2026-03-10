@@ -26,10 +26,12 @@ function Card({ pokemon }) {
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
         alt={pokemon.name}
       />
-      <h2>{pokemon.name}</h2>
+      <h2 className="pokemon-name">{pokemon.name}</h2>
       <p className="type-badge">{pokemon.type}</p>
-      <p>HP: {pokemon.hp}</p>
-      <p>Attack: {pokemon.attack}</p>
+      <div className="pokemon-stats">
+        <p>HP: {pokemon.hp}</p>
+        <p>Attack: {pokemon.attack}</p>
+      </div>
     </div>
   );
 }
