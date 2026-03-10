@@ -30,10 +30,24 @@ const pokemons = [
 function App() {
   const [count, setCount] = useState(0);
   const [typeFilter, setTypeFilter] = useState("All");
-  const filteredPokemons =
-    typeFilter === "All"
-      ? pokemons
-      : pokemons.filter((p) => p.type === typeFilter);
+  const [favorites, setFavorites] = useState([]);
+
+  const toggleFavorite = (id) => {
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id],
+    );
+  };
+  const filteredPokemon = pokemons.filter((p) => {
+    if (typeFilter === "Favorites") {
+      return favorites.includes(p.id);
+    }
+
+    if (typeFilter === "All") {
+      return true;
+    }
+
+    return p.type === typeFilter;
+  });
 
   return (
     <>
@@ -50,10 +64,16 @@ function App() {
         <button onClick={() => setTypeFilter("Normal")}>Normal</button>
         <button onClick={() => setTypeFilter("Fighting")}>Fighting</button>
         <button onClick={() => setTypeFilter("Rock")}>Rock</button>
+        <button onClick={() => setTypeFilter("Favorites")}>Favorites</button>
       </div>
       <div className="card-container">
-        {filteredPokemons.map((pokemon) => (
-          <Card key={pokemon.id} pokemon={pokemon} />
+        {filteredPokemon.map((pokemon) => (
+          <Card
+            key={pokemon.id}
+            pokemon={pokemon}
+            isFavorite={favorites.includes(pokemon.id)}
+            toggleFavorite={toggleFavorite}
+          />
         ))}
       </div>
     </>

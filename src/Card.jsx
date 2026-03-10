@@ -11,7 +11,7 @@ const typeColors = {
   Rock: "#b8a038",
 };
 
-function Card({ pokemon }) {
+function Card({ pokemon, isFavorite, toggleFavorite }) {
   const color = typeColors[pokemon.type] || "#ccc";
   return (
     <div
@@ -32,6 +32,12 @@ function Card({ pokemon }) {
         <p>HP: {pokemon.hp}</p>
         <p>Attack: {pokemon.attack}</p>
       </div>
+      <button
+        className="favorite-btn"
+        onClick={() => toggleFavorite(pokemon.id)}
+      >
+        {isFavorite ? "❤️" : "🤍"}
+      </button>
     </div>
   );
 }
