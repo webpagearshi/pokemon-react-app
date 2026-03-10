@@ -49,12 +49,20 @@
 }
 
 .card {
-  border: 1px solid #ddd;
   padding: 16px;
-  border-radius: 10px;
+  border-radius: 14px;
   background: white;
   text-align: center;
+  transform:
+    0.25s ease,
+    box-shadow 0.25s ease;
+  transform-style: preserve-3d;
 }
+.card:hover {
+  transform: translateY(-8px) rotateX(6deg) rotateY(-6deg);
+  box-shadow: 0 20px 35px var(--type-color);
+}
+
 .filters {
   margin-bottom: 20px;
 }
@@ -70,4 +78,11 @@
 }
 .filters button:hover {
   background-color: #21a1f1;
+}
+.card img {
+  width: 120px;
+  transition: transform 0.25s ease;
+}
+.card:hover img {
+  transform: scale(1.3);
 }

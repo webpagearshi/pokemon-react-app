@@ -17,6 +17,7 @@ function Card({ pokemon }) {
     <div
       className="card"
       style={{
+        "--type-color": color,
         border: `3px solid ${color}`,
         boxShadow: `0 6px 12px ${color}40`,
       }}
