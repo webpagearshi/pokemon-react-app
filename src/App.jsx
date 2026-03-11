@@ -1,10 +1,15 @@
+// Import React hooks for managing state and side effects
 import { useState } from "react";
 import { useEffect } from "react";
+// Import Card component which renders each Pokémon card
 import Card from "./Card";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+// Import CSS styling for the app
 import "./App.css";
 
+/* -------------------------------------------------------
+   DATA: Pokémon dataset used in the app
+   Each object represents one Pokémon with basic stats
+------------------------------------------------------- */
 const pokemons = [
   { id: 1, name: "Bulbasaur", type: "Grass", hp: 45, attack: 49 },
   { id: 4, name: "Charmander", type: "Fire", hp: 39, attack: 52 },
@@ -28,6 +33,10 @@ const pokemons = [
   { id: 148, name: "Dragonair", type: "Dragon", hp: 61, attack: 84 },
 ];
 
+/* -------------------------------------------------------
+   Emoji icons used for dynamic favicon updates
+   Each Pokémon type maps to an emoji
+------------------------------------------------------- */
 const typeEmojis = {
   Fire: "🔥",
   Water: "💧",
@@ -43,14 +52,27 @@ const typeEmojis = {
 };
 
 function App() {
+  /* -------------------------------------------------------
+     STATE VARIABLES
+  ------------------------------------------------------- */
+
+  // Stores selected type filters
+  // Example values: [], ["Fire"], ["Fire","Water"], ["Favorites"]
   const [typeFilter, setTypeFilter] = useState([]);
+
+  // Stores IDs of Pokémon marked as favorite
   const [favorites, setFavorites] = useState([]);
 
+  /* -------------------------------------------------------
+     FUNCTION: Update browser favicon dynamically
+  ------------------------------------------------------- */
   const updateFavicon = (emoji = null) => {
+    // Select the favicon element from the HTML head
     const favicon = document.querySelector("link[rel='icon']");
 
     let svg;
 
+    // If emoji provided → use emoji favicon
     if (emoji) {
       svg = `
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -58,7 +80,7 @@ function App() {
       </svg>
     `;
     } else {
-      // Pokeball SVG
+      // Otherwise show Pokéball favicon
       svg = `
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
         <circle cx="50" cy="50" r="48" fill="white" stroke="black" stroke-width="4"/>
@@ -68,17 +90,29 @@ function App() {
       </svg>
     `;
     }
-
+    // Convert SVG string to URL format
     const url = "data:image/svg+xml," + encodeURIComponent(svg);
+    // Replace favicon
     favicon.href = url;
   };
 
-  // Toggle favorite status of a pokemon
+  /* -------------------------------------------------------
+     FUNCTION: Toggle Favorite Pokémon
+  ------------------------------------------------------- */
+
   const toggleFavorite = (id) => {
     setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id],
+      // If Pokémon already favorite → remove it
+      prev.includes(id)
+        ? prev.filter((fav) => fav !== id)
+        : // Otherwise add it to favorites
+          [...prev, id],
     );
   };
+
+  /* -------------------------------------------------------
+     FUNCTION: Handle Filter Button Click
+  ------------------------------------------------------- */
 
   // Toggle type filter (add/remove type from filter)
   const toggleType = (type) => {
@@ -105,35 +139,56 @@ function App() {
     });
   };
 
+  /* -------------------------------------------------------
+     EXTRACT UNIQUE TYPES FROM DATA
+  ------------------------------------------------------- */
   // Extract unique pokemon types
   const types = [...new Set(pokemons.map((p) => p.type))];
 
-  //Filter logic
+  /* -------------------------------------------------------
+     FILTER LOGIC
+     Determines which Pokémon are displayed
+  ------------------------------------------------------- */
   const filteredPokemon = pokemons.filter((p) => {
+    // If Favorites filter active → show only favorites
     if (typeFilter.includes("Favorites")) {
       return favorites.includes(p.id);
     }
 
+    // If no filters selected → show all Pokémon
     if (typeFilter.length === 0) {
       return true;
     }
-
+    // Otherwise show Pokémon matching selected types
     return typeFilter.includes(p.type);
   });
 
+  /* -------------------------------------------------------
+     SIDE EFFECT: Update favicon when filters change
+  ------------------------------------------------------- */
   useEffect(() => {
+    // If only one filter selected
     if (typeFilter.length === 1) {
+      // Find emoji for that filter
       const emoji = typeEmojis[typeFilter[0]];
+      // Update favicon
       updateFavicon(emoji);
     } else {
+      // If multiple filters or none → show Pokéball
       updateFavicon(); // Pokeball
     }
   }, [typeFilter]);
 
+  /* -------------------------------------------------------
+     RENDER UI
+  ------------------------------------------------------- */
   return (
     <>
+      {/* App title */}
       <h1 className="app-header">Pokemon App</h1>
+      {/* Filter buttons */}
       <div className="filters">
+        {/* Show all Pokémon */}
         <button
           className={typeFilter.length === 0 ? "active-filter" : ""}
           onClick={() => setTypeFilter([])}
@@ -141,6 +196,7 @@ function App() {
           All
         </button>
 
+        {/* Render type buttons dynamically */}
         {types.map((type) => (
           <button
             key={type}
@@ -151,6 +207,7 @@ function App() {
           </button>
         ))}
 
+        {/* Favorites button */}
         <button
           className={typeFilter.includes("Favorites") ? "active-filter" : ""}
           onClick={() => setTypeFilter(["Favorites"])}
@@ -158,6 +215,8 @@ function App() {
           Favorites
         </button>
       </div>
+
+      {/* Display active filters as removable chips */}
       <div className="active-filters">
         {typeFilter.map((filter) => (
           <span
@@ -169,6 +228,8 @@ function App() {
           </span>
         ))}
       </div>
+
+      {/* Pokémon card grid */}
       <div className="card-container">
         {filteredPokemon.map((pokemon) => (
           <Card
@@ -183,4 +244,5 @@ function App() {
   );
 }
 
+// Export component so it can be used in main.jsx
 export default App;
