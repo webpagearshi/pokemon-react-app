@@ -41,12 +41,20 @@ function App() {
   // Toggle type filter (add/remove type from filter)
   const toggleType = (type) => {
     setTypeFilter((prev) => {
-      // If favorites is active, reset first
+      // If Favorites is clicked
+      if (type === "Favorites") {
+        if (prev.includes("Favorites")) {
+          return []; // deselect favorites
+        }
+        return ["Favorites"]; // select favorites exclusively
+      }
+
+      // If switching from Favorites to a type
       if (prev.includes("Favorites")) {
         return [type];
       }
 
-      // Normal toggle
+      // Normal toggle for types
       if (prev.includes(type)) {
         return prev.filter((t) => t !== type);
       }
