@@ -68,9 +68,9 @@ h1 {
 -------------------------------------------------- */
 .card-container {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 260px));
   gap: 20px;
-  grid-template-columns: repeat(1, 1fr);
-  justify-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 600px) {
@@ -96,33 +96,24 @@ h1 {
 -------------------------------------------------- */
 .card {
   /* Border color dynamically set using CSS variable */
+.card {
   border: 2px solid var(--type-color);
-
   padding: 16px;
   border-radius: 14px;
-
   text-align: center;
 
-  width: 100%;
-  max-width: 260px;
+  /* remove width + max-width */
 
-  /* Subtle gradient using pokemon type color */
   background: linear-gradient(
     135deg,
     color-mix(in srgb, var(--type-color) 10%, white),
     white
   );
 
-  /* Enables 3D transform for hover tilt */
   transform-style: preserve-3d;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    opacity 0.25s ease;
-
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   position: relative;
 }
-
 /* --------------------------------------------------
    GLOW EFFECT BEHIND CARD
 -------------------------------------------------- */
