@@ -85,6 +85,9 @@ h1 {
 
   text-align: center;
 
+  width: 100%;
+  max-width: 260px;
+
   /* Subtle gradient using pokemon type color */
   background: linear-gradient(
     135deg,
