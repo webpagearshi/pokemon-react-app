@@ -68,7 +68,7 @@ h1 {
 -------------------------------------------------- */
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
   justify-content: center;
 }
