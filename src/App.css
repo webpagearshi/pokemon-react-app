@@ -8,7 +8,7 @@ body {
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -28,8 +28,8 @@ body {
 }
 h1 {
   font-family: "Bangers", cursive;
-  font-size: 4rem;
-  letter-spacing: 3px;
+  font-size: 4.5rem;
+  letter-spacing: 6px;
   text-align: center;
   color: #ffcb05;
   text-shadow:
@@ -65,7 +65,7 @@ h1 {
   transform-style: preserve-3d;
   background: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--type-color) 12%, white),
+    color-mix(in srgb, var(--type-color) 10%, white),
     white
   );
   transition:
