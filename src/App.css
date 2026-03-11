@@ -37,6 +37,15 @@ h1 {
     3px -3px 0 #2a75bb,
     -3px 3px 0 #2a75bb,
     3px 3px 0 #2a75bb;
+  animation: titleFloat 3s ease-in-out infinite alternate;
+}
+@keyframes titleFloat {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-6px);
+  }
 }
 .card {
   padding: 3em;
@@ -156,20 +165,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-.filters button {
-  padding: 6px 14px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  background: white;
-  cursor: pointer;
-  font-family: Inter, sans-serif;
-  transition: all 0.2s ease;
-}
-
-.filters button:hover {
-  transform: translateY(-1px);
-}
-
 .active-filters {
   display: flex;
   gap: 8px;
@@ -196,9 +191,12 @@ h1 {
 }
 .filters button:hover {
   background: #f3f3f3;
+  transform: translateY(-1px);
 }
-.active-filter {
+/* Style for selected filter buttons */
+button.active-filter {
   background: #333;
   color: white;
   border: 1px solid #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
