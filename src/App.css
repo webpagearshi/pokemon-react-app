@@ -1,8 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap");
 body {
-  font-family: "Inter", sans-serif;
-  background: #f6f7fb;
   margin: 0;
+  background: linear-gradient(135deg, #f6f9fc, #e9f1ff);
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
 }
 #root {
   max-width: 1280px;
@@ -25,9 +26,20 @@ body {
     animation: logo-spin infinite 20s linear;
   }
 }
-
+h1 {
+  font-family: "Bangers", cursive;
+  font-size: 4rem;
+  letter-spacing: 3px;
+  text-align: center;
+  color: #ffcb05;
+  text-shadow:
+    -3px -3px 0 #2a75bb,
+    3px -3px 0 #2a75bb,
+    -3px 3px 0 #2a75bb,
+    3px 3px 0 #2a75bb;
+}
 .card {
-  padding: 2em;
+  padding: 3em;
 }
 
 .read-the-docs {

@@ -81,7 +81,7 @@ function App() {
 
   return (
     <>
-      <h1>Pokemon App</h1>
+      <h1 className="app-header">Pokemon App</h1>
       <div className="filters">
         <button
           className={typeFilter.length === 0 ? "active-filter" : ""}
