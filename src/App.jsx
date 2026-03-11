@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import Card from "./Card";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
@@ -27,9 +28,50 @@ const pokemons = [
   { id: 148, name: "Dragonair", type: "Dragon", hp: 61, attack: 84 },
 ];
 
+const typeEmojis = {
+  Fire: "🔥",
+  Water: "💧",
+  Grass: "🌿",
+  Electric: "⚡",
+  Psychic: "🔮",
+  Ghost: "👻",
+  Dragon: "🐉",
+  Fighting: "🥊",
+  Rock: "🪨",
+  Normal: "⭐",
+  Favorites: "❤️",
+};
+
 function App() {
   const [typeFilter, setTypeFilter] = useState([]);
   const [favorites, setFavorites] = useState([]);
+
+  const updateFavicon = (emoji = null) => {
+    const favicon = document.querySelector("link[rel='icon']");
+
+    let svg;
+
+    if (emoji) {
+      svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <text y=".9em" font-size="90">${emoji}</text>
+      </svg>
+    `;
+    } else {
+      // Pokeball SVG
+      svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="white" stroke="black" stroke-width="4"/>
+        <path d="M2 50 A48 48 0 0 1 98 50" fill="red" stroke="black" stroke-width="4"/>
+        <line x1="2" y1="50" x2="98" y2="50" stroke="black" stroke-width="6"/>
+        <circle cx="50" cy="50" r="12" fill="white" stroke="black" stroke-width="4"/>
+      </svg>
+    `;
+    }
+
+    const url = "data:image/svg+xml," + encodeURIComponent(svg);
+    favicon.href = url;
+  };
 
   // Toggle favorite status of a pokemon
   const toggleFavorite = (id) => {
@@ -78,6 +120,15 @@ function App() {
 
     return typeFilter.includes(p.type);
   });
+
+  useEffect(() => {
+    if (typeFilter.length === 1) {
+      const emoji = typeEmojis[typeFilter[0]];
+      updateFavicon(emoji);
+    } else {
+      updateFavicon(); // Pokeball
+    }
+  }, [typeFilter]);
 
   return (
     <>
