@@ -94,8 +94,8 @@ h1 {
 /* --------------------------------------------------
    POKEMON CARD STYLING
 -------------------------------------------------- */
-.card {
-  /* Border color dynamically set using CSS variable */
+
+/* Border color dynamically set using CSS variable */
 .card {
   border: 2px solid var(--type-color);
   padding: 16px;
@@ -111,7 +111,9 @@ h1 {
   );
 
   transform-style: preserve-3d;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
   position: relative;
 }
 /* --------------------------------------------------
